@@ -13,7 +13,7 @@ import { Contract } from "../components/Contract";
 import React from "react";
 
 import NonSSRWrapper from "../components/NoSSRWrapper";
-import Container from "react-bootstrap/Container";
+import {Container, Navbar, Nav} from "react-bootstrap";
 import INFURA_PROVIDER_API_KEY from "../config/contract";
 
 const { chains, provider } = configureChains(
@@ -37,6 +37,16 @@ export default function IndexPage() {
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains} theme={darkTheme()}>
         <Container>
+        <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link href="#pricing">Pricing</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
           <ConnectButton />
           {/* nonSSR -> prevent hydration error */}
           <NonSSRWrapper>
