@@ -2,15 +2,16 @@ import {
   useContractWrite,
   useContractRead,
   useAccount,
-  useContractEvent
+  useContractEvent,
 } from "wagmi";
 import { useState } from "react";
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../config/contract";
+import { Form, Row, Col, Button } from "react-bootstrap";
 
-export function Contract() {
+export function ContractMsg() {
   const [input, setInput] = useState("");
   const { address } = useAccount();
-  const { write, status } = useContractWrite({
+  const { write, status, isLoading } = useContractWrite({
     addressOrName: CONTRACT_ADDRESS,
     contractInterface: CONTRACT_ABI,
     functionName: "newMsg",
@@ -37,19 +38,22 @@ export function Contract() {
 
   return (
     <>
-      <div>
-        <input
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-        ></input>
-        <button onClick={() => write()}>Send</button>
-        <br />
-        <span style={{ color: "grey" }}>Tx Status: {status}</span>
-      </div>
-      <h3>My messages:</h3>
+    <Form>
+      <Form.Group className="mb-3">
+        <h3 sm="12">一般免費訊息</h3>
+        <Row>
+        <Col sm="6">
+        <Form.Label>一般訊息</Form.Label>
+          <Form.Control type="text" placeholder="輸入訊息" value={input}
+          onChange={(event) => setInput(event.target.value)}/>  
+        </Col>
+        <Col sm="6"><Button onClick={() => write()}>發布訊息</Button></Col>
+        </Row>
+        <Col sm="12" className="text-muted">Tx Status: {status}</Col>
+      </Form.Group>
+    </Form>
+      <h3>我的近5則訊息:</h3>
       {data && <pre>&gt; {data.join("\r\n> ")}</pre>}
     </>
   );
-
-  // <div>{JSON.stringify(data)}</div>;
 }

@@ -1,4 +1,5 @@
 import { useAccount, useBalance } from "wagmi";
+import { Row } from "react-bootstrap";
 
 const AccountBoard = () => {
   const { address, isConnecting, isDisconnected } = useAccount();
@@ -7,18 +8,18 @@ const AccountBoard = () => {
   });
 
   return (
-    <div>
-      <h2>AccountInfo</h2>
+    <Row>
+      <h3>帳號資訊</h3>
 
-      {!isConnecting && !isDisconnected && <h4>Account: {address}</h4>}
+      {!isConnecting && !isDisconnected && <h5>錢包地址： {address}</h5>}
 
       {/* <pre>{JSON.stringify(balance, null, 2)}</pre> */}
       {balance.data && (
-        <h4>
-          {balance.data.formatted} {balance.data.symbol}
-        </h4>
+        <p>錢包餘額：
+          {parseFloat(balance.data.formatted).toFixed(2)} {balance.data.symbol}
+        </p>
       )}
-    </div>
+    </Row>
   );
 };
 
