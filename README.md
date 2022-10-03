@@ -1,21 +1,64 @@
-# Hello World example
+# Week #4
+Po🚀Z22096017✨
 
-This example shows the most basic idea behind Next. We have 2 pages: `pages/index.js` and `pages/about.js`. The former responds to `/` requests and the latter to `/about`. Using `next/link` you can add hyperlinks between them with universal routing capabilities. The `day` directory shows that you can have subdirectories.
+## ChatRoom智能合約
 
-## Deploy your own
+- 合約地址:[0xfc9BfA7Bc4b1341a091c48D1433C4390E5551e43](https://goerli.etherscan.io/address/0xfc9BfA7Bc4b1341a091c48D1433C4390E5551e43)
 
-Deploy the example using [Vercel](https://vercel.com):
+### 合約程式碼
+![](https://i.imgur.com/7yf6Csb.png)
+```
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.2;
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/next.js/tree/canary/examples/hello-world)
+contract ChatRoom {
+    string public announcement;
+    uint256 public announcementLastPaidVal;
 
-## How to use
+    mapping(address => string[]) public userToMsgs;
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+    event newMessage(address user, string message);
+    event newAnnouncementEvent(address user, string message);
+    event newAnnouncementLastPaidVal(address user, uint256 value);
 
-```bash
-npx create-next-app --example hello-world hello-world-app
-# or
-yarn create next-app --example hello-world hello-world-app
+    function newMsg(string memory str) public {
+        userToMsgs[msg.sender].push(str);
+        emit newMessage(msg.sender, str);
+    }
+    function showLastestMsg(uint256 len, address user) public view returns (string[] memory) {
+        require(len != 0 && user != address(0), "Input not valid");
+
+        uint256 totalLen = userToMsgs[user].length;
+        uint256 finalLen = totalLen > len ? len : totalLen;
+        string[] memory retMsgs = new string[](finalLen); 
+        if(finalLen == 0) return retMsgs;
+
+        uint256 index = totalLen - 1;
+        uint256 k = 0;
+        while(index >= 0){
+            retMsgs[k] = userToMsgs[user][index];
+            if(index > 0) index--;
+            k++;
+            if(k == finalLen) break;
+        }
+        return retMsgs;
+    }
+    function newAnnouncement(string memory str) public payable {
+        require(msg.value > announcementLastPaidVal, "Not enough fund");
+        announcementLastPaidVal = msg.value;
+        announcement = str;
+        emit newAnnouncementEvent(msg.sender, str);
+        emit newAnnouncementLastPaidVal(msg.sender, announcementLastPaidVal);
+    }
+}
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+### deploy on Vercel
+[View on Vercel](https://zinstitute-week-4-chat-room-zy9v.vercel.app/)
+
+### Github
+GithubId : m061i6
+[View on Github](https://github.com/m061i6/zinstitute-week-4-ChatRoom)
+
+### Codesandbox
+[View on Codesandbox](https://codesandbox.io/p/github/m061i6/zinstitute-week-4-ChatRoom/draft/crazy-curran)
