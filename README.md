@@ -1,11 +1,11 @@
-# Week #4
+# #Week4 ChatRoom App 
 Po🚀Z22096017✨
 
 ## ChatRoom智能合約
 
 - 合約地址:[0xfc9BfA7Bc4b1341a091c48D1433C4390E5551e43](https://goerli.etherscan.io/address/0xfc9BfA7Bc4b1341a091c48D1433C4390E5551e43)
 
-### 合約程式碼
+### Solidity 合約
 ![](https://i.imgur.com/7yf6Csb.png)
 ```
 // SPDX-License-Identifier: GPL-3.0
@@ -52,7 +52,7 @@ contract ChatRoom {
     }
 }
 ```
-
+## WAGMI 專案
 ### deploy on Vercel
 [View on Vercel](https://zinstitute-week-4-chat-room-zy9v.vercel.app/)
 
@@ -60,5 +60,5 @@ contract ChatRoom {
 GithubId : m061i6
 [View on Github](https://github.com/m061i6/zinstitute-week-4-ChatRoom)
 
-### Codesandbox
-[View on Codesandbox](https://codesandbox.io/p/github/m061i6/zinstitute-week-4-ChatRoom/draft/crazy-curran)
+### CodeSandSox
+[View on CodeSandSox](https://codesandbox.io/p/github/m061i6/zinstitute-week-4-ChatRoom/draft/crazy-curran)
